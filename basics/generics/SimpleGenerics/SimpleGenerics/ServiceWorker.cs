@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SimpleGenerics
 {
@@ -59,8 +56,30 @@ namespace SimpleGenerics
                 Console.WriteLine(node.Value.Name);
                 node = node.Next;
             }
+        }
 
+        public void SimpleDictionaryWork()
+        {
+            var nephewList = new Dictionary<string, List<Person>>();
 
+            nephewList.Add("Reza",
+                new List<Person>() { new Person { Name = "Adyaan Reza" } });
+            nephewList.Add("Khan",
+                new List<Person>() { new Person { Name = "Shehzaeb Khan" } });
+            nephewList.Add("Ali", new List<Person>());
+
+            nephewList["Reza"].Add(new Person { Name = "Aroosh Reza" });
+            nephewList["Khan"].Add(new Person { Name = "Azhar Khan" });
+            nephewList["Ali"].Add(new Person { Name = "Samara Ali" });
+            nephewList["Ali"].Add(new Person { Name = "Saifan Ali" });
+
+            foreach (var item in nephewList)
+            {
+                foreach (var nephew in item.Value)
+                {
+                    Console.WriteLine($"{item.Key} : {nephew.Name}");
+                }
+            }
         }
     }
 }

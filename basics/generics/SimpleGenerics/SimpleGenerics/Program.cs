@@ -14,7 +14,8 @@ namespace SimpleGenerics
 
             ServiceWorker sw = new ServiceWorker();
             //sw.SimpleHashSetWork();
-            sw.SimpleLinkedListWork();
+            //sw.SimpleLinkedListWork();
+            sw.SimpleDictionaryWork();
         }
 
         private static void IntegerValueProcessing()
