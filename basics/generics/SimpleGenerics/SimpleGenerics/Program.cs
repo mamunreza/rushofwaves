@@ -8,9 +8,12 @@ namespace SimpleGenerics
     {
         static void Main(string[] args)
         {
-            IntegerValueProcessing();
-            Console.WriteLine("\n");
-            DifferentDataTypeProcessing();
+            //IntegerValueProcessing();
+            //Console.WriteLine("\n");
+            //DifferentDataTypeProcessing();
+
+            ServiceWorker sw = new ServiceWorker();
+            sw.SimpleHashSetWork();
         }
 
         private static void IntegerValueProcessing()
