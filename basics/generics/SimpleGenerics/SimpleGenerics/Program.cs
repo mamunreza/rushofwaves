@@ -13,7 +13,8 @@ namespace SimpleGenerics
             //DifferentDataTypeProcessing();
 
             ServiceWorker sw = new ServiceWorker();
-            sw.SimpleHashSetWork();
+            //sw.SimpleHashSetWork();
+            sw.SimpleLinkedListWork();
         }
 
         private static void IntegerValueProcessing()
