@@ -81,13 +81,13 @@ namespace GenericMethods
 
             var persons = new List<Person>
             {
-                new Person { Name="Mohiuddin Jahangir"},
-                new Person { Name="Hamidur Rahman"},
-                new Person { Name="Mostafa Kamal"},
-                new Person { Name="Mohammad Ruhul Amin"},
-                new Person { Name="Matiur Rahman"},
-                new Person { Name="Munshi Abdur Rouf"},
-                new Person { Name="Noor Mohammad"}
+                new Person {Name = "Mohiuddin Jahangir"},
+                new Person {Name = "Hamidur Rahman"},
+                new Person {Name = "Mostafa Kamal"},
+                new Person {Name = "Mohammad Ruhul Amin"},
+                new Person {Name = "Matiur Rahman"},
+                new Person {Name = "Munshi Abdur Rouf"},
+                new Person {Name = "Noor Mohammad"}
             };
             persons.Show(ConsoleWriteGenericNames);
             persons.Show(ConsoleWriteGenericTypes);
