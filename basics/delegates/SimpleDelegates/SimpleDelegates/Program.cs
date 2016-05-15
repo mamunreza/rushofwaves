@@ -11,17 +11,17 @@ namespace SimpleDelegates
     {
         static void Main(string[] args)
         {
-            Person person = new Person("Rahi");
-            Random rand = new Random();
+            var person = new Person("Rahi");
+            var rand = new Random();
 
-            person.StepChanged += new StepChangedDelegate(OnStepChanging);
-            person.StepChanged += new StepChangedDelegate(OnStepChanged);
-            person.StepChanged += new StepChangedDelegate(AfterStepChaned);
+            person.StepChanged += OnStepChanging;
+            person.StepChanged += OnStepChanged;
+            person.StepChanged += AfterStepChaned;
 
             person.Step = 1;
             Console.WriteLine("\n");
 
-            for (int i = 0; i < 4; i++)
+            for (var i = 0; i < 4; i++)
             {
                 person.Step = rand.Next(-10, 10);
                 Console.WriteLine("\n");
@@ -34,11 +34,11 @@ namespace SimpleDelegates
         }
         static void OnStepChanged(int oldStep, int newStep)
         {
-            if (oldStep < newStep)
-                Console.WriteLine($"Moved {newStep - oldStep} steps forward...");
-            else
-                Console.WriteLine($"Moved {oldStep - newStep} steps backward...");
+            Console.WriteLine(oldStep < newStep 
+                ? $"Moved {newStep - oldStep} steps forward..." 
+                : $"Moved {oldStep - newStep} steps backward...");
         }
+
         static void AfterStepChaned(int oldStep, int newStep)
         {
             if (newStep > 0)
@@ -52,28 +52,28 @@ namespace SimpleDelegates
 
     class Person
     {
-        private string _name;
-        private int _step;
+        private string name;
+        private int step;
         public StepChangedDelegate StepChanged;
         public Person(string name)
         {
-            _name = name;
-            _step = 0;
+            this.name = name;
+            this.step = 0;
             Console.WriteLine($"{name} is starting the journey...\n");
         }
 
         public int Step
         {
-            get { return _step; }
+            get { return this.step; }
 
             set
             {
-                if (value != _step)
+                if (value != this.step)
                 {
-                    StepChanged(_step, value);
+                    this.StepChanged(this.step, value);
                 }
 
-                _step = value;
+                this.step = value;
             }
         }
 
