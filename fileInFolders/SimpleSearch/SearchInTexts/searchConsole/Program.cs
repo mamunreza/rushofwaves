@@ -13,6 +13,8 @@ namespace SearchConsole
             //DoAdvanceSearch();
 
             //DiaryWork();
+
+            ReturnGuid();
         }
 
         private static void DiaryWork()
@@ -30,7 +32,7 @@ namespace SearchConsole
             var processor = new LineProcessor();
             //var lineBuilder = new StringBuilder();
 
-            using (var output = new StreamWriter(@"Output.txt"))
+            using (var output = new StreamWriter(@"D:\TestDestination\General\Output.txt"))
             {
                 foreach (var line in seeker.Search(@"D:\TestSource\General\BuildOrder.txt"))
                 {
@@ -48,6 +50,12 @@ namespace SearchConsole
             var seeker = new SimpleSeeker();
             var texts = seeker.Search(@"D:\TestSource\General\BuildOrder.txt");
             Console.WriteLine(texts);
+            Console.ReadLine();
+        }
+
+        public static void ReturnGuid()
+        {
+            Console.WriteLine(Guid.NewGuid().ToString().ToUpper());
             Console.ReadLine();
         }
     }
