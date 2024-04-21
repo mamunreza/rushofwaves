@@ -15,12 +15,20 @@ internal static class RunnerEasy
         }
     }
 
-    
     internal static void ExecuteP009()
     {
         int x = 121;
         var item = new P009();
         var result = item.IsPalindrome(x);
+        Console.WriteLine(result);
+    }
+
+    internal static void ExecuteP014()
+    {
+        string[] str = { "flower", "flow", "flight" };
+        //string[] str = { "ab", "a" };
+        var item = new P014();
+        var result = item.LongestCommonPrefix(str);
         Console.WriteLine(result);
     }
 }
