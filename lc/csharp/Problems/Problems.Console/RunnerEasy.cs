@@ -31,4 +31,13 @@ internal static class RunnerEasy
         var result = item.LongestCommonPrefix(str);
         Console.WriteLine(result);
     }
+
+    internal static void ExecuteP013()
+    {
+        string s = "MCMXCIV";
+        //string[] str = { "ab", "a" };
+        var item = new P013();
+        var result = item.RomanToInt(s);
+        Console.WriteLine(result);
+    }
 }
