@@ -40,4 +40,41 @@ internal static class RunnerEasy
         var result = item.RomanToInt(s);
         Console.WriteLine(result);
     }
+
+    internal static void ExecuteP021()
+    {
+        var node11 = new ListNode
+        {
+            val = 1,
+        };
+        var node12 = new ListNode
+        {
+            val = 2,
+        };
+        var node13 = new ListNode
+        {
+            val = 4,
+        };
+        node11.next = node12;
+        node12.next = node13;
+
+        var node21 = new ListNode
+        {
+            val = 1,
+        };
+        var node22 = new ListNode
+        {
+            val = 3,
+        };
+        var node23 = new ListNode
+        {
+            val = 4,
+        };
+        node21.next = node22;
+        node22.next = node23;
+
+        var item = new P021();
+        var result = item.MergeTwoLists(node11, node21);
+        Console.WriteLine(result.val);
+    }
 }
