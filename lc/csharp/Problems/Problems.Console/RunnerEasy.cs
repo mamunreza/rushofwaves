@@ -77,4 +77,13 @@ internal static class RunnerEasy
         var result = item.MergeTwoLists(node11, node21);
         Console.WriteLine(result.val);
     }
+
+    internal static void ExecuteP027()
+    {
+        int[] nums = { 3, 2, 2, 3 };
+        //int[] nums = { 3, 2, 2, 3 }
+        var item = new P027();
+        var result = item.RemoveElement(nums, 3);
+        Console.WriteLine(result);
+    }
 }
