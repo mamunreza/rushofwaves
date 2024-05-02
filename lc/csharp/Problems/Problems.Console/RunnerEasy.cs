@@ -86,4 +86,14 @@ internal static class RunnerEasy
         var result = item.RemoveElement(nums, 3);
         Console.WriteLine(result);
     }
+
+    internal static void ExecuteP058()
+    {
+        //string s = "Hello World";
+        //string s = "   fly me   to   the moon  ";
+        string s = "luffy is still joyboy";
+        var item = new P058();
+        var result = item.LengthOfLastWord(s);
+        Console.WriteLine(result);
+    }
 }
