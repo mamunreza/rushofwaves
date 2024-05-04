@@ -87,6 +87,18 @@ internal static class RunnerEasy
         Console.WriteLine(result);
     }
 
+    internal static void ExecuteP028()
+    {
+        //string haystack = "sadbutsad";
+        //string needle = "sad";
+        string haystack = "leetcode";
+        string needle = "leeto";
+
+        var item = new P028();
+        var result = item.StrStr(haystack, needle);
+        Console.WriteLine(result);
+    }
+
     internal static void ExecuteP058()
     {
         //string s = "Hello World";
