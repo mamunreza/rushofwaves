@@ -108,4 +108,20 @@ internal static class RunnerEasy
         var result = item.LengthOfLastWord(s);
         Console.WriteLine(result);
     }
+
+    internal static void ExecuteP290()
+    {
+        //string pattern = "abba";
+        //string s = "dog cat cat dog";
+
+        //string pattern = "abba";
+        //string s = "dog cat cat fish";
+
+        string pattern = "aaaa";
+        string s = "dog cat cat dog";
+
+        var item = new P290();
+        var result = item.WordPattern(pattern, s);
+        Console.WriteLine(result);
+    }
 }
