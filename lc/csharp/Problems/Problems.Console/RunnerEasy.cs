@@ -109,6 +109,22 @@ internal static class RunnerEasy
         Console.WriteLine(result);
     }
 
+    internal static void ExecuteP205()
+    {
+        //string s = "egg";
+        //string t = "add";
+
+        //string s = "foo";
+        //string t = "bar";
+
+        string s = "paper";
+        string t = "title";
+
+        var item = new P205();
+        var result = item.IsIsomorphic(s, t);
+        Console.WriteLine(result);
+    }
+
     internal static void ExecuteP290()
     {
         //string pattern = "abba";
