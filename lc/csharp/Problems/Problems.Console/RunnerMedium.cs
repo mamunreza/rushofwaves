@@ -42,4 +42,14 @@ internal class RunnerMedium
         var result = item.MaxSubArray(nums);
         Console.WriteLine(result);
     }
+
+    internal static void ExecuteP198()
+    {
+        var item = new P198();
+        //int[] nums = new int[] { 1, 2, 3, 1 };
+        //int[] nums = new int[] { 2, 7, 9, 3, 1 };
+        int[] nums = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+        var result = item.Rob(nums);
+        Console.WriteLine(result);
+    }
 }
