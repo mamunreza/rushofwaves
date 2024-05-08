@@ -4,6 +4,6 @@ internal class Program
 {
     static void Main(string[] args)
     {
-        RunnerEasy.ExecuteP205();
+        RunnerMedium.ExecuteP198();
     }
 }
