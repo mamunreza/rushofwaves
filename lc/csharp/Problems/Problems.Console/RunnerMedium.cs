@@ -52,4 +52,21 @@ internal class RunnerMedium
         var result = item.Rob(nums);
         Console.WriteLine(result);
     }
+
+    internal static void ExecuteP167()
+    {
+        var item = new P167();
+
+        //int[] nums = new int[] { 2, 7, 11, 15 };
+        //var result = item.TwoSum(nums, 9);
+
+        //int[] nums = new int[] { 2, 3, 4 };
+        //var result = item.TwoSum(nums, 6);
+
+        int[] nums = new int[] { -1, 0 };
+        var result = item.TwoSum(nums, -1);
+
+        Console.WriteLine(result[0]);
+        Console.WriteLine(result[1]);
+    }
 }
