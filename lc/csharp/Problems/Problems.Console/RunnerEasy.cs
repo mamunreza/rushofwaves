@@ -140,4 +140,17 @@ internal static class RunnerEasy
         var result = item.WordPattern(pattern, s);
         Console.WriteLine(result);
     }
+
+    internal static void ExecuteP392()
+    {
+        //string s = "abc";
+        //string t = "ahbgdc";
+
+        string s = "axc";
+        string t = "ahbgdc";
+
+        var item = new P392();
+        var result = item.IsSubsequence(s, t);
+        Console.WriteLine(result);
+    }
 }

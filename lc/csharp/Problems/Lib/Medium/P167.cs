@@ -1,5 +1,8 @@
 ﻿namespace Lib.Medium;
 
+/// <summary>
+/// 2 pointer
+/// </summary>
 public class P167
 {
     public int[] TwoSum(int[] numbers, int target)
