@@ -69,4 +69,25 @@ internal class RunnerMedium
         Console.WriteLine(result[0]);
         Console.WriteLine(result[1]);
     }
+
+    internal static void ExecuteP102()
+    {
+        var item = new P102();
+
+        var n15 = new TreeNode(15);
+        var n7 = new TreeNode(7);
+
+        var n20 = new TreeNode(20);
+        n20.left = n15;
+        n20.right = n7;
+
+        var n9 = new TreeNode(9);
+
+        var n3 = new TreeNode(3);
+        n3.left = n9;
+        n3.right = n20;
+
+        var result = item.LevelOrder(n3);
+        Console.WriteLine(result);
+    }
 }
