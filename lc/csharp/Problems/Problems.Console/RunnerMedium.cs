@@ -19,7 +19,10 @@ internal class RunnerMedium
     internal static void ExecuteP005()
     {
         var item = new P005();
-        var input = "aaba";
+        //var input = "aaba";
+        //var input = "babad";
+        //var input = "cbbd";
+        var input = "cccbbdbbccf";
         var result = item.LongestPalindrome(input);
         Console.WriteLine(result);
     }
