@@ -1,6 +1,4 @@
-﻿using System.Collections;
-
-namespace Lib.Medium;
+﻿namespace Lib.Medium;
 
 public class P102
 {
