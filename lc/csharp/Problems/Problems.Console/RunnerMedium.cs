@@ -93,4 +93,29 @@ internal class RunnerMedium
         var result = item.LevelOrder(n3);
         Console.WriteLine(result);
     }
+
+    internal static void ExecuteP133()
+    {
+        var item = new P133();
+
+        var n1 = new Node(1);
+        var n2 = new Node(2);
+        var n3 = new Node(3);
+        var n4 = new Node(4);
+
+        n1.neighbors.Add(n2);
+        n1.neighbors.Add(n4);
+
+        n2.neighbors.Add(n1);
+        n2.neighbors.Add(n3);
+
+        n3.neighbors.Add(n2);
+        n3.neighbors.Add(n4);
+
+        n4.neighbors.Add(n1);
+        n4.neighbors.Add(n3);
+
+        var result = item.CloneGraph(n1);
+        Console.WriteLine(result.val);
+    }
 }
