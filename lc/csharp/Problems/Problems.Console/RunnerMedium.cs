@@ -118,4 +118,12 @@ internal class RunnerMedium
         var result = item.CloneGraph(n1);
         Console.WriteLine(result.val);
     }
+
+    internal static void ExecuteP973() 
+    {
+        var item = new P973();
+
+        var result = item.KClosest([[1, 3], [-2, 2]], 1);
+        //var result = item.KClosest([[3, 3], [5, -1], [-2, 4]], 2);
+    }
 }
