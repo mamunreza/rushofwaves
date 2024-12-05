@@ -1,4 +1,32 @@
 services:
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    ports:
+      - '5672:5672'
+      - '15672:15672'
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+
+  productspublisher:
+    build:
+      context: ../
+      dockerfile:  ./Products/EventPublisher/Dockerfile
+    container_name: productspublisher
+    depends_on:
+      - rabbitmq
+    ports:
+      - '8012:8012'
+    environment:
+      # - ASPNETCORE_ENVIRONMENT=Development
+      - RABBITMQ_HOST=rabbitmq
+      - RABBITMQ_PORT=5672
+      - RABBITMQ_USERNAME=guest
+      - RABBITMQ_PASSWORD=guest
+      - ASPNETCORE_URLS=http://0.0.0.0:8012
+    restart: always
+
   productsapi:
     build:
       context: ../
