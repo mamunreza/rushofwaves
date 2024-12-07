@@ -1,4 +1,3 @@
-using EventPublisher;
 
 public class Worker : BackgroundService
 {
@@ -15,11 +14,13 @@ public class Worker : BackgroundService
 
         while (!stoppingToken.IsCancellationRequested)
         {
-            var message = $"Message {++counter} sent at {DateTime.UtcNow}";
-            await _productsEventService.PublishMessageAsync(message);
+            // var message = $"Message {++counter} sent at {DateTime.UtcNow}";
+            var product = FakeProductProducer.ProduceRandomProduct();
+            var productJson = System.Text.Json.JsonSerializer.Serialize(product);
+            await _productsEventService.PublishMessageAsync(productJson);
 
             // Delay to simulate periodic publishing
-            await Task.Delay(TimeSpan.FromSeconds(1), stoppingToken);
+            await Task.Delay(TimeSpan.FromSeconds(5), stoppingToken);
         }
     }
 }

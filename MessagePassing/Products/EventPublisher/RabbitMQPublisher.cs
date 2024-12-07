@@ -1,8 +1,6 @@
 ﻿using RabbitMQ.Client;
 using System.Text;
 
-namespace EventPublisher;
-
 public interface IRabbitMQPublisher
 {
     Task PublishMessageAsync(string exchangeName, string queueName, string routingKey, string message);

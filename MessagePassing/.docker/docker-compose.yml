@@ -17,14 +17,14 @@ services:
     depends_on:
       - rabbitmq
     ports:
-      - '8012:8012'
+      - '8023:8023'
     environment:
       # - ASPNETCORE_ENVIRONMENT=Development
       - RABBITMQ_HOST=rabbitmq
       - RABBITMQ_PORT=5672
       - RABBITMQ_USERNAME=guest
       - RABBITMQ_PASSWORD=guest
-      - ASPNETCORE_URLS=http://0.0.0.0:8012
+      - ASPNETCORE_URLS=http://0.0.0.0:8023
     restart: always
 
   productsapi:
@@ -32,9 +32,10 @@ services:
       context: ../
       dockerfile: ./Products/API/Dockerfile
     ports:
-      - "8080:8080"
+      - "8022:8022"
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
+      # - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://0.0.0.0:8022
     restart: always
 
 #   db:

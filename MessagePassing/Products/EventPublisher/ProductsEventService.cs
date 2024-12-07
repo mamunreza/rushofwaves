@@ -1,7 +1,5 @@
 using System.Text.Json;
 
-namespace EventPublisher;
-
 public interface IProductsEventService
 {
     Task PublishMessageAsync(string message);

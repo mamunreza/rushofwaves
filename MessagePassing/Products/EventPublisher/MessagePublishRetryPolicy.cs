@@ -1,8 +1,6 @@
 ﻿using Polly;
 using Polly.Retry;
 
-namespace EventPublisher;
-
 public interface IMessagePublishRetryPolicy
 {
     AsyncRetryPolicy ApplyAsync();
