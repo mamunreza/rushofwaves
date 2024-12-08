@@ -1,5 +1,7 @@
+using MessagePassing.Products.Data;
+using Microsoft.EntityFrameworkCore;
 
-namespace API;
+namespace MessagePassing.Products.API;
 
 public class Program
 {
@@ -13,6 +15,9 @@ public class Program
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
+
+        builder.Services.AddDbContext<AppDbContext>(options =>
+            options.UseSqlite("Data Source=app.db"));
 
         var app = builder.Build();
         app.UseSwagger();

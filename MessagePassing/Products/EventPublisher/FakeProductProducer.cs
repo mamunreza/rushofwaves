@@ -8,12 +8,12 @@ public class FakeProductProducer
 {
     private static readonly Random _random = new Random();
 
-    public static Product ProduceRandomProduct()
+    public static ProductAdded ProduceRandomProduct()
     {
         var productNames = new List<string> { "Laptop", "Smartphone", "Tablet", "Monitor", "Keyboard" };
         var productCategories = new List<string> { "Electronics", "Accessories", "Home Appliances" };
 
-        var product = new Product
+        var product = new ProductAdded
         {
             Id = Guid.NewGuid(),
             Name = productNames[_random.Next(productNames.Count)],
