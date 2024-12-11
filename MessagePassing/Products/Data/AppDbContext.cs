@@ -2,16 +2,16 @@
 
 namespace MessagePassing.Products.Data;
 
-public class AppDbContext : DbContext
+public class AppDbContext(DbContextOptions options) : DbContext(options)
 {
-    public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
+    public DbSet<Product> Products { get; set; }
+    public DbSet<ProductAddedOutbox> ProductAddedOutboxes { get; set; }
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-    }
-
-    public required DbSet<Product> Products { get; set; }
-
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        optionsBuilder.UseSqlite("Data Source=app.db");
+        modelBuilder.Entity<ProductAddedOutbox>(entity =>
+        {
+            entity.Property(e => e.IsProcessed)
+                .HasDefaultValue(false);
+        });
     }
 }

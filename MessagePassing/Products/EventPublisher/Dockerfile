@@ -1,21 +1,21 @@
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /app
 
-COPY Products/EventPublisher/EventPublisher.csproj ./
-# COPY . .
-RUN dotnet restore
+COPY Products/Data/*.csproj ./Products/Data/
+COPY Products/Domain/*.csproj ./Products/Domain/
+COPY Products/EventPublisher/*.csproj ./Products/EventPublisher/
+RUN dotnet restore Products/EventPublisher/EventPublisher.csproj
 
-COPY Products/Domain/. ./
-COPY Products/EventPublisher/. ./
+COPY Products/Data/. ./Products/Data/
+COPY Products/Domain/. ./Products/Domain/
+COPY Products/EventPublisher/. ./Products/EventPublisher/
 
-RUN dotnet build EventPublisher.csproj -c Release -o /app/build
-RUN dotnet publish EventPublisher.csproj -c Release -o /app/out
-# RUN dotnet publish -c Release -o out
+RUN dotnet build Products/EventPublisher/EventPublisher.csproj -c Release -o /app/build
+RUN dotnet publish Products/EventPublisher/EventPublisher.csproj -c Release -o /app/out
 
 FROM mcr.microsoft.com/dotnet/aspnet:8.0
 WORKDIR /app
 COPY --from=build /app/out ./
-# COPY --from=build /app .
 EXPOSE 8023
 
 ENTRYPOINT ["dotnet", "EventPublisher.dll"]

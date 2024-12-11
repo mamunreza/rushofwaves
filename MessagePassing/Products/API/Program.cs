@@ -5,7 +5,7 @@ namespace MessagePassing.Products.API;
 
 public class Program
 {
-    public static void Main(string[] args)
+    public static async Task Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
 
@@ -16,9 +16,14 @@ public class Program
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
 
-        builder.Services.AddDbContext<AppDbContext>(options =>
-            options.UseSqlite("Data Source=app.db"));
-
+        builder.Services.AddDbContext<AppDbContext>(opt =>
+        {
+            var connectionString = builder.Configuration?.GetConnectionString("DefaultConnection");
+            if (!string.IsNullOrEmpty(connectionString))
+            {
+                opt.UseNpgsql(connectionString);
+            }
+        });
         var app = builder.Build();
         app.UseSwagger();
         app.UseSwaggerUI();
@@ -30,6 +35,20 @@ public class Program
 
         app.MapControllers();
 
-        app.Run();
+        using var scope = app.Services.CreateScope();
+        var services = scope.ServiceProvider;
+        try
+        {
+            var context = services.GetRequiredService<AppDbContext>();
+            await context.Database.MigrateAsync();
+        }
+        catch (Exception ex)
+        {
+            var logger = services.GetRequiredService<ILogger<Program>>();
+            logger.LogError(ex, "An error occurred during migration");
+            throw;
+        }
+
+        await app.RunAsync();
     }
 }

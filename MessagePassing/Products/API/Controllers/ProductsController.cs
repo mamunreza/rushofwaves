@@ -1,4 +1,5 @@
 using MessagePassing.Products.Data;
+using MessagePassing.Products.Domain;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -20,9 +21,27 @@ public class ProductsController : ControllerBase
     }
 
     [HttpPost(Name = "AddProduct")]
-    public async Task<IActionResult> AddProduct(Product product)
+    public async Task<IActionResult> AddProduct(ProductAdded product)
     {
-        var newProduct = new Product
+        Product newProduct = CreateProduct(product);
+        _dbContext.Products.Add(newProduct);
+        ProductAddedOutbox productAddedOutbox = CreateProductAddedOutbox(product);
+        _dbContext.ProductAddedOutboxes.Add(productAddedOutbox);
+        await _dbContext.SaveChangesAsync();
+        _logger.LogInformation("Product added: {ProductId}", newProduct.Id);
+        return Ok(newProduct);
+    }
+
+    [HttpGet(Name = "GetProducts")]
+    public async Task<IActionResult> GetProducts()
+    {
+        var products = await _dbContext.Products.ToListAsync();
+        return Ok(products);
+    }
+
+    private static Product CreateProduct(ProductAdded product)
+    {
+        return new Product
         {
             Id = Guid.NewGuid(),
             Name = product.Name,
@@ -36,16 +55,23 @@ public class ProductsController : ControllerBase
             CreatedAt = DateTime.UtcNow,
             UpdatedAt = DateTime.UtcNow
         };
-        _dbContext.Products.Add(newProduct);
-        await _dbContext.SaveChangesAsync();
-        _logger.LogInformation("Product added: {ProductId}", newProduct.Id);
-        return Ok(newProduct);
     }
 
-    [HttpGet(Name = "GetProducts")]
-    public async Task<IActionResult> GetProducts()
+    private static ProductAddedOutbox CreateProductAddedOutbox(ProductAdded product)
     {
-        var products = await _dbContext.Products.ToListAsync();
-        return Ok(products);
+        return new ProductAddedOutbox
+        {
+            Id = Guid.NewGuid(),
+            Name = product.Name,
+            Price = product.Price,
+            Description = product.Description,
+            Category = product.Category,
+            ImageUrl = product.ImageUrl,
+            Brand = product.Brand,
+            Stock = 1,
+            IsAvailable = true,
+            CreatedAt = DateTime.UtcNow,
+            UpdatedAt = DateTime.UtcNow
+        };
     }
 }
