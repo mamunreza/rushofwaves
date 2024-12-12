@@ -1,3 +1,4 @@
+using MessagePassing.Products.API.Infrastructure;
 using MessagePassing.Products.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,7 +10,7 @@ public class Program
     {
         var builder = WebApplication.CreateBuilder(args);
 
-        // Add services to the container.
+        builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
 
         builder.Services.AddControllers();
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -18,7 +19,7 @@ public class Program
 
         builder.Services.AddDbContext<AppDbContext>(opt =>
         {
-            var connectionString = builder.Configuration?.GetConnectionString("DefaultConnection");
+            string? connectionString = GetConnectionString(builder);
             if (!string.IsNullOrEmpty(connectionString))
             {
                 opt.UseNpgsql(connectionString);
@@ -31,7 +32,6 @@ public class Program
         app.UseHttpsRedirection();
 
         app.UseAuthorization();
-
 
         app.MapControllers();
 
@@ -50,5 +50,17 @@ public class Program
         }
 
         await app.RunAsync();
+    }
+
+    static string? GetConnectionString(WebApplicationBuilder builder)
+    {
+        var postgreSqlConfig = builder.Configuration.GetSection("PostgreSql").Get<PostgreSqlConfiguration>();
+        var host = Environment.GetEnvironmentVariable("POSTGRESQL__HOST") ?? postgreSqlConfig.Host;
+        var port = Environment.GetEnvironmentVariable("POSTGRESQL__PORT") ?? postgreSqlConfig.Port.ToString();
+        var database = Environment.GetEnvironmentVariable("POSTGRESQL__DATABASE") ?? postgreSqlConfig.Database;
+        var user = Environment.GetEnvironmentVariable("POSTGRESQL__USERNAME") ?? postgreSqlConfig.Username;
+        var password = Environment.GetEnvironmentVariable("POSTGRESQL__PASSWORD") ?? postgreSqlConfig.Password;
+
+        return $"Host={host};Port={port};Database={database};Username={user};Password={password}";
     }
 }

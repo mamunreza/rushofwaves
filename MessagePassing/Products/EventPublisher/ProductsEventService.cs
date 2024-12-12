@@ -23,7 +23,7 @@ public class ProductsEventService(
     {
         //var factory = new AppDbContextFactory();
         //using var _dbContext = factory.CreateDbContext(Array.Empty<string>());
-        var outboxMessages = await _dbContext.ProductAddedOutboxes.Where(x => x.IsProcessed).Take(10).ToListAsync(stoppingToken);
+        var outboxMessages = await _dbContext.ProductAddedOutboxes.Where(x => !x.IsProcessed).Take(10).ToListAsync(stoppingToken);
         _logger.LogInformation("Processing {Count} outbox messages", outboxMessages.Count);
 
         foreach (var outboxMessage in outboxMessages)
