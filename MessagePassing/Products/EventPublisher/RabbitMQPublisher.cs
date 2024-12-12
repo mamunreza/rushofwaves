@@ -24,7 +24,7 @@ public class RabbitMQPublisher : IRabbitMQPublisher
         _messagePublishRetryPolicy = messagePublishRetryPolicy ?? throw new ArgumentNullException(nameof(messagePublishRetryPolicy));
         _rabbitMqConfiguration = rabbitMqConfiguration ?? throw new ArgumentNullException(nameof(rabbitMqConfiguration));
 
-        //ValidateConfiguration(_rabbitMqConfiguration.Value);
+        ValidateConfiguration(_rabbitMqConfiguration.Value);
     }
 
     public async Task PublishMessageAsync(string exchangeName, string queueName, string routingKey, string message)
@@ -75,16 +75,16 @@ public class RabbitMQPublisher : IRabbitMQPublisher
 
     private void ValidateConfiguration(RabbitMqConfiguration config)
     {
-        if (string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable("RABBITMQ__HOST")) || 
+        if (string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable("RABBITMQ__HOST")) &&
             string.IsNullOrWhiteSpace(config.Host))
             throw new ArgumentException("RabbitMQ host is not configured.", nameof(config.Host));
-        if (string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable("RABBITMQ__PORT")) || 
+        if (string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable("RABBITMQ__PORT")) &&
             config.Port <= 0)
             throw new ArgumentException("RabbitMQ port is not configured or invalid.", nameof(config.Port));
-        if (string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable("RABBITMQ__USERNAME")) || 
+        if (string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable("RABBITMQ__USERNAME")) &&
             string.IsNullOrWhiteSpace(config.Username))
             throw new ArgumentException("RabbitMQ username is not configured.", nameof(config.Username));
-        if (string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable("RABBITMQ__PASSWORD")) || 
+        if (string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable("RABBITMQ__PASSWORD")) &&
             string.IsNullOrWhiteSpace(config.Password))
             throw new ArgumentException("RabbitMQ password is not configured.", nameof(config.Password));
     }
