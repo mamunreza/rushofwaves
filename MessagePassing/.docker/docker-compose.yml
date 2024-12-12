@@ -20,6 +20,26 @@ services:
       POSTGRES_DB: mpproduct
     volumes:
       - postgres_data:/var/lib/postgresql/data
+
+  productsapi:
+    build:
+      context: ../
+      dockerfile: ./Products/API/Dockerfile
+    container_name: productsapi
+    depends_on:
+      - rabbitmq
+      - postgresdb
+    ports:
+      - "8022:8022"
+    environment:
+      # - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://0.0.0.0:8022
+      - POSTGRESQL__HOST=postgresdb
+      - POSTGRESQL__PORT=5432
+      - POSTGRESQL__DATABASE=mpproduct
+      - POSTGRESQL__USERNAME=postgres
+      - POSTGRESQL__PASSWORD=sa123
+    restart: always
   
   productspublisher:
     build:
@@ -41,30 +61,10 @@ services:
       - POSTGRESQL__HOST=postgresdb
       - POSTGRESQL__PORT=5432
       - POSTGRESQL__DATABASE=mpproduct
-      - POSTGRESQL__USER=postgres
+      - POSTGRESQL__USERNAME=postgres
       - POSTGRESQL__PASSWORD=sa123
       # - ConnectionStrings__DefaultConnection='Server=host.docker.internal;Port=5432;Database=mpproduct;User ID=postgres;Password=sa123'
     restart: always
-
-  # productsapi:
-  #   build:
-  #     context: ../
-  #     dockerfile: ./Products/API/Dockerfile
-  #   container_name: productsapi
-  #   depends_on:
-  #     - rabbitmq
-  #     - postgres
-  #   ports:
-  #     - "8022:8022"
-  #   environment:
-  #     # - ASPNETCORE_ENVIRONMENT=Development
-  #     - ASPNETCORE_URLS=http://0.0.0.0:8022
-  #   restart: always
-
-# volumes:
-#   postgres_data:
-#     driver: local
-
       
 volumes:
   postgres_data:
