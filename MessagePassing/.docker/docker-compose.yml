@@ -41,6 +41,30 @@ services:
       - POSTGRESQL__PASSWORD=sa123
     restart: always
   
+  productsconsumer:
+    build:
+      context: ../
+      dockerfile:  ./Products/EventConsumer/Dockerfile
+    container_name: productsconsumer
+    depends_on:
+      - rabbitmq
+      - postgresdb
+    ports:
+      - '8021:8021'
+    environment:
+      # - ASPNETCORE_ENVIRONMENT=Development
+      - RABBITMQ__HOST=rabbitmq
+      - RABBITMQ__PORT=5672
+      - RABBITMQ__USERNAME=guest
+      - RABBITMQ__PASSWORD=guest
+      - ASPNETCORE_URLS=http://0.0.0.0:8021
+      - POSTGRESQL__HOST=postgresdb
+      - POSTGRESQL__PORT=5432
+      - POSTGRESQL__DATABASE=mpproduct
+      - POSTGRESQL__USERNAME=postgres
+      - POSTGRESQL__PASSWORD=sa123
+    restart: always
+  
   productspublisher:
     build:
       context: ../
