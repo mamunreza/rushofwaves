@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using MessagePassing.Products.Domain;
+using MessagePassing.Domain;
 
 public class FakeProductProducer
 {
