@@ -1,5 +1,5 @@
 using MessagePassing.Products.Data;
-using MessagePassing.Products.Domain;
+using MessagePassing.Domain;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 

@@ -1,4 +1,4 @@
-namespace MessagePassing.Products.Domain;
+namespace MessagePassing.Domain;
 
 public class ProductAdded
 {
