@@ -1,10 +1,32 @@
 ﻿using DesignPatterns.Specification;
+using DesignPatterns.Strategy;
 
 namespace DesignPatterns;
 
 class Program
 {
     static void Main(string[] args)
+    {
+        //ImplementSpecificationPattern();
+        ImplementStrategyPattern();
+    }
+
+    private static void ImplementStrategyPattern()
+    {
+        var survey1 = new CustomerSurvey
+        {
+            CustomerAge = 25,
+            CustomerLocation = "New York"
+        };
+
+        ICustomerSurveyFilter ageFilter = new AgeBasedFilter(18);
+        ICustomerSurveyFilter locationFilter = new LocationBasedFilter("New York");
+
+        Console.WriteLine($"Age Filter Satisfied: {ageFilter.IsSatisfied(survey1)}");
+        Console.WriteLine($"Location Filter Satisfied: {locationFilter.IsSatisfied(survey1)}");
+    }
+
+    private static void ImplementSpecificationPattern()
     {
         // Create some sample products
         var product1 = new Product { Name = "Product A", Price = 10, InStock = true };
