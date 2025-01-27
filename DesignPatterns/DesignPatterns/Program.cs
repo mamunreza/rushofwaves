@@ -1,19 +1,49 @@
-﻿using DesignPatterns.Specification;
+﻿using DesignPatterns.PredicateBasedFilter;
+using DesignPatterns.Specification;
 using DesignPatterns.Strategy;
 
 namespace DesignPatterns;
 
-class Program
+partial class Program
 {
     static void Main(string[] args)
     {
         //ImplementSpecificationPattern();
-        ImplementStrategyPattern();
+        //ImplementStrategyPattern();
+        ImplementPredicateBasedFiltering();
+    }
+
+    private static void ImplementPredicateBasedFiltering()
+    {
+        List<PredicateBasedFilter.CustomerSurvey> surveys =
+        [
+            new PredicateBasedFilter.CustomerSurvey { CustomerAge = 25, CustomerLocation = "New York" },
+            new PredicateBasedFilter.CustomerSurvey { CustomerAge = 17, CustomerLocation = "New York" },
+            new PredicateBasedFilter.CustomerSurvey { CustomerAge = 30, CustomerLocation = "California" },
+            new PredicateBasedFilter.CustomerSurvey { CustomerAge = 20, CustomerLocation = "New York" },
+            new PredicateBasedFilter.CustomerSurvey { CustomerAge = 15, CustomerLocation = "California" }
+        ];
+
+        // Filter surveys from New York
+        var newYorkSurveys = surveys.Where(SurveyFilters.IsFromNewYork);
+        Console.WriteLine("Surveys from New York:");
+        foreach (var survey in newYorkSurveys)
+        {
+            Console.WriteLine(survey);
+        }
+
+        // Filter surveys where customers are over 18
+        var adultSurveys = surveys.Where(SurveyFilters.IsOver18);
+        Console.WriteLine("\nSurveys from adults:");
+        foreach (var survey in adultSurveys)
+        {
+            Console.WriteLine(survey);
+        }
     }
 
     private static void ImplementStrategyPattern()
     {
-        var survey1 = new CustomerSurvey
+        var survey1 = new Strategy.CustomerSurvey
         {
             CustomerAge = 25,
             CustomerLocation = "New York"
