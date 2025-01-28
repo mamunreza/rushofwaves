@@ -1,4 +1,5 @@
 ﻿using DesignPatterns.PredicateBasedFilter;
+using DesignPatterns.QueryObject;
 using DesignPatterns.Specification;
 using DesignPatterns.Strategy;
 
@@ -10,7 +11,50 @@ partial class Program
     {
         //ImplementSpecificationPattern();
         //ImplementStrategyPattern();
-        ImplementPredicateBasedFiltering();
+        //ImplementPredicateBasedFiltering();
+        ImplementQueryObjectPattern();
+    }
+
+    private static void ImplementQueryObjectPattern()
+    {
+        var surveys = new List<QueryObject.CustomerSurvey>()
+        {
+            new QueryObject.CustomerSurvey { CustomerAge = 25, CustomerLocation = "New York" },
+            new QueryObject.CustomerSurvey { CustomerAge = 17, CustomerLocation = "New York" },
+            new QueryObject.CustomerSurvey { CustomerAge = 30, CustomerLocation = "California" },
+            new QueryObject.CustomerSurvey { CustomerAge = 20, CustomerLocation = "New York" },
+            new QueryObject.CustomerSurvey { CustomerAge = 15, CustomerLocation = "California" }
+        };
+
+        // Create queries
+        var ageQuery = new AgeBasedQuery(18);
+        var locationQuery = new LocationBasedQuery("New York");
+        var combinedQuery = new CombinedQuery(ageQuery, locationQuery);
+
+        // Execute queries
+        var filteredSurveys1 = ageQuery.Execute(surveys);
+        var filteredSurveys2 = locationQuery.Execute(surveys);
+        var combinedFilteredSurveys = combinedQuery.Execute(surveys);
+
+        // Print results
+        Console.WriteLine("Surveys from customers over 18:");
+        foreach (var survey in filteredSurveys1)
+        {
+            Console.WriteLine($"Age: {survey.CustomerAge}, Location: {survey.CustomerLocation}");
+        }
+
+        Console.WriteLine("\nSurveys from customers in New York:");
+        foreach (var survey in filteredSurveys2)
+        {
+            Console.WriteLine($"Age: {survey.CustomerAge}, Location: {survey.CustomerLocation}");
+        }
+
+        Console.WriteLine(
+            "\nSurveys from customers over 18 and in New York:");
+        foreach (var survey in combinedFilteredSurveys)
+        {
+            Console.WriteLine($"Age: {survey.CustomerAge}, Location: {survey.CustomerLocation}");
+        }
     }
 
     private static void ImplementPredicateBasedFiltering()
