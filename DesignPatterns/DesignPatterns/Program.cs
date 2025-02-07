@@ -1,4 +1,5 @@
-﻿using DesignPatterns.PredicateBasedFilter;
+﻿using DesignPatterns.Behavioral.Strategy;
+using DesignPatterns.PredicateBasedFilter;
 using DesignPatterns.QueryObject;
 using DesignPatterns.Specification;
 using DesignPatterns.Strategy;
@@ -10,9 +11,10 @@ partial class Program
     static void Main(string[] args)
     {
         //ImplementSpecificationPattern();
-        //ImplementStrategyPattern();
+        //ImplementStrategyPatternForFilter();
         //ImplementPredicateBasedFiltering();
-        ImplementQueryObjectPattern();
+        // ImplementQueryObjectPattern();
+        ImplementStrategyPattern();
     }
 
     private static void ImplementQueryObjectPattern()
@@ -85,7 +87,7 @@ partial class Program
         }
     }
 
-    private static void ImplementStrategyPattern()
+    private static void ImplementStrategyPatternForFilter()
     {
         var survey1 = new Strategy.CustomerSurvey
         {
@@ -122,5 +124,20 @@ partial class Program
         Console.WriteLine($"Product 1 meets inStockOrPriceGreaterThan15Spec: {inStockOrPriceGreaterThan15Spec.IsSatisfiedBy(product1)}");
 
         Console.ReadLine();
+    }
+
+    private static void ImplementStrategyPattern()
+    {
+        Order order1 = new Order(2.5, new StandardShipping());
+        double cost1 = order1.CalculateTotalShippingCost();
+        Console.WriteLine($"Standard Shipping Cost: {cost1}"); // Output: 5.25
+
+        Order order2 = new Order(1.0, new ExpressShipping());
+        double cost2 = order2.CalculateTotalShippingCost();
+        Console.WriteLine($"Express Shipping Cost: {cost2}"); // Output: 10.2
+
+        Order order3 = new Order(0.5, new OvernightShipping());
+        double cost3 = order3.CalculateTotalShippingCost();
+        Console.WriteLine($"Overnight Shipping Cost: {cost3}"); // Output: 20.25
     }
 }
