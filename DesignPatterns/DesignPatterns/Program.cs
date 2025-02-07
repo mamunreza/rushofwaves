@@ -1,4 +1,5 @@
 ﻿using DesignPatterns.Behavioral.Strategy;
+using DesignPatterns.Creational.Factory;
 using DesignPatterns.PredicateBasedFilter;
 using DesignPatterns.QueryObject;
 using DesignPatterns.Specification;
@@ -14,7 +15,31 @@ partial class Program
         //ImplementStrategyPatternForFilter();
         //ImplementPredicateBasedFiltering();
         // ImplementQueryObjectPattern();
-        ImplementStrategyPattern();
+
+        #region Creational Patterns
+
+        ImplementFactoryPattern();
+
+        #endregion
+
+        #region Behavioral Patterns
+
+        //ImplementStrategyPattern();
+
+        #endregion
+    }
+
+    private static void ImplementFactoryPattern()
+    {
+        // Create a Circle using CircleFactory
+        IShapeFactory circleFactory = new CircleFactory();
+        IShape circle = circleFactory.CreateShape();
+        circle.Draw();
+
+        // Create a Rectangle using RectangleFactory
+        IShapeFactory rectangleFactory = new RectangleFactory();
+        IShape rectangle = rectangleFactory.CreateShape();
+        rectangle.Draw();
     }
 
     private static void ImplementQueryObjectPattern()
