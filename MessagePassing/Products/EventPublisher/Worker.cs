@@ -1,3 +1,4 @@
+namespace MessagePassing.Products.EventPublisher;
 
 public class Worker : BackgroundService
 {
@@ -16,12 +17,11 @@ public class Worker : BackgroundService
     {
         while (!stoppingToken.IsCancellationRequested)
         {
-            using (var scope = _serviceProvider.CreateScope())
-            {
-                var scopedService = scope.ServiceProvider.GetRequiredService<IProductsEventService>();
-                await scopedService.ProcessEventsAsync(stoppingToken);
-                await Task.Delay(TimeSpan.FromSeconds(5), stoppingToken);
-            }
+            using var scope = _serviceProvider.CreateScope();
+            var scopedService = scope.ServiceProvider.GetRequiredService<IProductsEventService>();
+            await scopedService.ProcessEventsAsync(stoppingToken);
+            await Task.Delay(TimeSpan.FromSeconds(5), stoppingToken);
+
             //var product = FakeProductProducer.ProduceRandomProduct();
             //var productJson = System.Text.Json.JsonSerializer.Serialize(product);
             //await _productsEventService.ProcessEventsAsync(stoppingToken);

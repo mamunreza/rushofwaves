@@ -1,7 +1,7 @@
 using EventPublisher.Infrastructure;
 using MessagePassing.Products.Data;
+using MessagePassing.Products.EventPublisher;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Design;
 
 HostApplicationBuilder builder = Host.CreateApplicationBuilder(args);
 
