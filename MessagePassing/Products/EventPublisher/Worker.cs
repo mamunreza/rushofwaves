@@ -1,17 +1,10 @@
 namespace MessagePassing.Products.EventPublisher;
 
-public class Worker : BackgroundService
+public class Worker(
+    IServiceProvider serviceProvider) : BackgroundService
 {
-    //private readonly IProductsEventService _productsEventService;
-    private readonly IServiceProvider _serviceProvider;
-
-    public Worker(
-        //IProductsEventService productsEventService,
-        IServiceProvider serviceProvider)
-    {
-        //_productsEventService = productsEventService;
-        _serviceProvider = serviceProvider;
-    }
+    private readonly IServiceProvider _serviceProvider = serviceProvider
+            ?? throw new ArgumentNullException(nameof(serviceProvider));
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {

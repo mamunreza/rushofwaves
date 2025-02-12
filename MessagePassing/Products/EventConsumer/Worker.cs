@@ -1,23 +1,22 @@
-namespace EventConsumer;
+namespace MessagePassing.Products.EventConsumer;
 
-public class Worker : BackgroundService
+public class Worker(
+    ILogger<Worker> logger,
+    IServiceProvider serviceProvider) : BackgroundService
 {
-    private readonly ILogger<Worker> _logger;
+    private readonly ILogger<Worker> _logger = logger 
+        ?? throw new ArgumentNullException(nameof(logger));
+    private readonly IServiceProvider _serviceProvider = serviceProvider
+        ?? throw new ArgumentNullException(nameof(serviceProvider));
 
-    public Worker(ILogger<Worker> logger)
+    protected override async Task ExecuteAsync(CancellationToken cancellation)
     {
-        _logger = logger;
-    }
-
-    protected override async Task ExecuteAsync(CancellationToken stoppingToken)
-    {
-        while (!stoppingToken.IsCancellationRequested)
+        while (!cancellation.IsCancellationRequested)
         {
-            if (_logger.IsEnabled(LogLevel.Information))
-            {
-                _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
-            }
-            await Task.Delay(1000, stoppingToken);
+            using var scope = _serviceProvider.CreateScope();
+            var scopedService = scope.ServiceProvider.GetRequiredService<ICustomerConsumerService>();
+            await scopedService.ConsumeAsync(cancellation);
+            await Task.Delay(TimeSpan.FromSeconds(5), cancellation);
         }
     }
 }
