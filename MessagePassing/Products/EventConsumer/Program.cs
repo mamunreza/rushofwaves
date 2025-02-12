@@ -1,5 +1,3 @@
-using EventConsumer;
-
 namespace MessagePassing.Products.EventConsumer;
 
 public class Program

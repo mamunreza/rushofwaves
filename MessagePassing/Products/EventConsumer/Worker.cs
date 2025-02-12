@@ -15,8 +15,10 @@ public class Worker(
         {
             using var scope = _serviceProvider.CreateScope();
             var scopedService = scope.ServiceProvider.GetRequiredService<ICustomerConsumerService>();
+            _logger.LogInformation("Consumer execution started");
             await scopedService.ConsumeAsync(cancellation);
             await Task.Delay(TimeSpan.FromSeconds(5), cancellation);
+            _logger.LogInformation("Consumer execution ended");
         }
     }
 }
