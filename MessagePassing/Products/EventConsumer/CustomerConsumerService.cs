@@ -1,6 +1,4 @@
-﻿using EventConsumer;
-
-namespace MessagePassing.Products.EventConsumer;
+﻿namespace MessagePassing.Products.EventConsumer;
 
 public interface ICustomerConsumerService
 {
@@ -23,7 +21,8 @@ public class CustomerConsumerService : ICustomerConsumerService
 
     public async Task ConsumeAsync(CancellationToken cancellation)
     {
-        await _rabbitMQConsumer.ConsumeAsync(cancellation);
         _logger.LogInformation("Consumption started");
+        await _rabbitMQConsumer.ConsumeAsync(cancellation);
+        _logger.LogInformation("Consumption ended");
     }
 }

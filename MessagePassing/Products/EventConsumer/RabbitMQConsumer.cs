@@ -1,4 +1,4 @@
-﻿namespace EventConsumer;
+﻿namespace MessagePassing.Products.EventConsumer;
 
 public interface IRabbitMQConsumer
 {
@@ -17,6 +17,6 @@ public class RabbitMQConsumer : IRabbitMQConsumer
     public async Task ConsumeAsync(CancellationToken cancellation)
     {
         await Task.CompletedTask;
-        _logger.LogInformation("Consuming messages from RabbitMQ");
+        _logger.LogInformation("Work done");
     }
 }
