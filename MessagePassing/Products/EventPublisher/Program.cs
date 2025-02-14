@@ -7,7 +7,8 @@ HostApplicationBuilder builder = Host.CreateApplicationBuilder(args);
 
 // Add configuration from appsettings.json
 builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
-builder.Services.Configure<RabbitMqConfiguration>(builder.Configuration.GetSection("RabbitMqConfiguration"));
+builder.Services.Configure<RabbitMqConfiguration>(
+    builder.Configuration.GetSection("RabbitMqConfiguration"));
 
 builder.Services.AddDbContext<AppDbContext>(opt =>
 {

@@ -22,7 +22,7 @@ public class CustomerConsumerService : ICustomerConsumerService
     public async Task ConsumeAsync(CancellationToken cancellation)
     {
         _logger.LogInformation("Consumption started");
-        await _rabbitMQConsumer.ConsumeAsync(cancellation);
+        await _rabbitMQConsumer.StartAsync(cancellation);
         _logger.LogInformation("Consumption ended");
     }
 }

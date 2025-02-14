@@ -21,8 +21,10 @@ public class RabbitMQPublisher : IRabbitMQPublisher
         IOptions<RabbitMqConfiguration> rabbitMqConfiguration)
     {
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-        _messagePublishRetryPolicy = messagePublishRetryPolicy ?? throw new ArgumentNullException(nameof(messagePublishRetryPolicy));
-        _rabbitMqConfiguration = rabbitMqConfiguration ?? throw new ArgumentNullException(nameof(rabbitMqConfiguration));
+        _messagePublishRetryPolicy = messagePublishRetryPolicy 
+            ?? throw new ArgumentNullException(nameof(messagePublishRetryPolicy));
+        _rabbitMqConfiguration = rabbitMqConfiguration 
+            ?? throw new ArgumentNullException(nameof(rabbitMqConfiguration));
 
         ValidateConfiguration(_rabbitMqConfiguration.Value);
     }
