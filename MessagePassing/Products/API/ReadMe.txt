@@ -15,10 +15,13 @@ dotnet ef database update --startup-project ../API
 
 ### EventConsumer project
 - Consume CustomerAdded from RabbitMQ
-  - Move exchange and queue names to appsettings.json
-  - Refactor service names in the docker compose file
   _ Add unit tests for the event consumer
   - Update Customer information in the database
+  - Integrate polly for retry policy
+
+### EventPublisher project
+  - Refactor service names in the docker compose file
+  _ Add unit tests for the event publisher
 
 Sample CustomerAdded event:
 {
