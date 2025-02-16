@@ -11,18 +11,28 @@ public interface IRabbitMQConsumer
     Task StartAsync(CancellationToken cancellationToken);
 }
 
-public class RabbitMQConsumer(
-    ILogger<RabbitMQConsumer> logger,
-    IOptions<RabbitMqConfiguration> rabbitMqConfiguration) : IRabbitMQConsumer, IAsyncDisposable
+public class RabbitMQConsumer : IRabbitMQConsumer, IAsyncDisposable
 {
-    private readonly string _exchangeName = "customer.exchange";
-    private readonly string _queueName = "customer.queue";
-    private readonly string _routingKey = "customer";
-    private readonly ILogger<RabbitMQConsumer> _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-    private readonly IOptions<RabbitMqConfiguration> _rabbitMqConfiguration = rabbitMqConfiguration
-            ?? throw new ArgumentNullException(nameof(rabbitMqConfiguration));
+    private readonly ILogger<RabbitMQConsumer> _logger;
+    private readonly IOptions<RabbitMqConfiguration> _rabbitMqConfiguration;
+
+    private readonly string _exchangeName;
+    private readonly string _queueName;
+    private readonly string _routingKey;
     private IChannel? _channel;
     private IConnection? _connection;
+
+    public RabbitMQConsumer(ILogger<RabbitMQConsumer> logger, IOptions<RabbitMqConfiguration> rabbitMqConfiguration)
+    {
+        _logger = logger 
+            ?? throw new ArgumentNullException(nameof(logger));
+        _rabbitMqConfiguration = rabbitMqConfiguration 
+            ?? throw new ArgumentNullException(nameof(rabbitMqConfiguration));
+
+        _exchangeName = _rabbitMqConfiguration.Value.Customer.Exchange;
+        _queueName = _rabbitMqConfiguration.Value.Customer.Queue;
+        _routingKey = _rabbitMqConfiguration.Value.Customer.RoutingKey;
+    }
 
     public async Task StartAsync(CancellationToken cancellationToken)
     {
@@ -91,8 +101,18 @@ public class RabbitMQConsumer(
 
     public async ValueTask DisposeAsync()
     {
-        _channel?.CloseAsync();
-        _connection?.CloseAsync();
-        await Task.CompletedTask;
+        if (_channel != null)
+        {
+            await _channel.CloseAsync();
+            await _channel.DisposeAsync();
+        }
+
+        if (_connection != null)
+        {
+            await _connection.CloseAsync();
+            await _connection.DisposeAsync();
+        }
+
+        GC.SuppressFinalize(this);
     }
 }

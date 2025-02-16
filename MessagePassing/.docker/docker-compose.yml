@@ -64,6 +64,9 @@ services:
       - RABBITMQ__PORT=5672
       - RABBITMQ__USERNAME=guest
       - RABBITMQ__PASSWORD=guest
+      - RABBITMQ__CUSTOMER__EXCHANGE=customer.exchange
+      - RABBITMQ__CUSTOMER__QUEUE=customer.queue
+      - RABBITMQ__CUSTOMER__ROUTINGKEY=customer
       - ASPNETCORE_URLS=http://0.0.0.0:8021
       - POSTGRESQL__HOST=postgresdb
       - POSTGRESQL__PORT=5432
