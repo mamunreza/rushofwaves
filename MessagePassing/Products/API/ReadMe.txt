@@ -15,8 +15,9 @@ dotnet ef database update --startup-project ../API
 
 ### EventConsumer project
 - Consume CustomerAdded from RabbitMQ
-  - Clean up the code
   - Move exchange and queue names to appsettings.json
+  - Refactor service names in the docker compose file
+  _ Add unit tests for the event consumer
   - Update Customer information in the database
 
 Sample CustomerAdded event:

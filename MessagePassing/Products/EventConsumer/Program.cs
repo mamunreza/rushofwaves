@@ -10,7 +10,7 @@ public class Program
 
         builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
         builder.Services.Configure<RabbitMqConfiguration>(
-            builder.Configuration.GetSection("RabbitMqConfiguration"));
+            builder.Configuration.GetSection("RabbitMq"));
 
         builder.Services.AddScoped<IRabbitMQConsumer, RabbitMQConsumer>();
         builder.Services.AddScoped<ICustomerConsumerService, CustomerConsumerService>();
