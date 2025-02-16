@@ -8,6 +8,11 @@ services:
     environment:
       RABBITMQ_DEFAULT_USER: guest
       RABBITMQ_DEFAULT_PASS: guest
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "check_port_connectivity"]
+      interval: 5s
+      timeout: 10s
+      retries: 5
 
   postgresdb:
     image: postgres:15-alpine
@@ -45,10 +50,12 @@ services:
     build:
       context: ../
       dockerfile:  ./Products/EventConsumer/Dockerfile
-    container_name: productsconsumer
+    container_name: productsserviceconsumer
     depends_on:
-      - rabbitmq
-      - postgresdb
+      rabbitmq:
+        condition: service_healthy
+      postgresdb:
+        condition: service_started
     ports:
       - '8021:8021'
     environment:
