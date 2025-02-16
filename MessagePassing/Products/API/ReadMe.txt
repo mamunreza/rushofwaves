@@ -15,3 +15,17 @@ dotnet ef database update --startup-project ../API
 
 ### EventConsumer project
 - Consume CustomerAdded from RabbitMQ
+  - Clean up the code
+  - Move exchange and queue names to appsettings.json
+  - Update Customer information in the database
+
+Sample CustomerAdded event:
+{
+  "Id": "d290f1ee-6c54-4b01-90e6-d701748f0851",
+  "FirstName": "John",
+  "LastName": "Doe",
+  "Email": "john.doe@example.com",
+  "Phone": "555-1234",
+  "CreatedAt": "2023-10-01T12:34:56Z",
+  "UpdatedAt": "2023-10-01T12:34:56Z"
+}
