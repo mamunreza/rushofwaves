@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data", "Data\Data.csproj", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventConsumer", "EventConsumer\EventConsumer.csproj", "{18B7F700-60ED-4674-900B-7D776A9FAA11}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventConsumer.Tests", "EventConsumer.Tests\EventConsumer.Tests.csproj", "{1B623B3E-306D-4477-BAE2-C43F2215CB74}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{18B7F700-60ED-4674-900B-7D776A9FAA11}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{18B7F700-60ED-4674-900B-7D776A9FAA11}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{18B7F700-60ED-4674-900B-7D776A9FAA11}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1B623B3E-306D-4477-BAE2-C43F2215CB74}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B623B3E-306D-4477-BAE2-C43F2215CB74}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B623B3E-306D-4477-BAE2-C43F2215CB74}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B623B3E-306D-4477-BAE2-C43F2215CB74}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
