@@ -15,6 +15,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventConsumer", "EventConsu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventConsumer.Tests", "EventConsumer.Tests\EventConsumer.Tests.csproj", "{1B623B3E-306D-4477-BAE2-C43F2215CB74}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docker", "Docker", "{7310A132-8C04-4BFD-9429-0812B2B15C96}"
+	ProjectSection(SolutionItems) = preProject
+		..\.docker\docker-compose.yml = ..\.docker\docker-compose.yml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

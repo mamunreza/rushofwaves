@@ -79,7 +79,7 @@ services:
     build:
       context: ../
       dockerfile:  ./Products/EventPublisher/Dockerfile
-    container_name: productspublisher
+    container_name: productsservicepublisher
     depends_on:
       - rabbitmq
       - postgresdb
