@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using MessagePassing.Domain;
 
+namespace MessagePassing.Products.EventPublisher;
+
 public class FakeProductProducer
 {
     private static readonly Random _random = new Random();

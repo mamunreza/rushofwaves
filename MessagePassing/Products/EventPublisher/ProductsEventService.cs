@@ -2,6 +2,8 @@ using MessagePassing.Products.Data;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json;
 
+namespace MessagePassing.Products.EventPublisher;
+
 public interface IProductsEventService
 {
     Task ProcessEventsAsync(CancellationToken stoppingToken);

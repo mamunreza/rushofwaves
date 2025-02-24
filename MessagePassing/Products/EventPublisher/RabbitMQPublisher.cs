@@ -1,8 +1,10 @@
-﻿using EventPublisher.Infrastructure;
+﻿using MessagePassing.Products.EventPublisher.Infrastructure;
 using Microsoft.Extensions.Options;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Exceptions;
 using System.Text;
+
+namespace MessagePassing.Products.EventPublisher;
 
 public interface IRabbitMQPublisher
 {
