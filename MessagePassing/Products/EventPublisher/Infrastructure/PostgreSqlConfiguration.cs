@@ -1,4 +1,4 @@
-﻿namespace EventPublisher.Infrastructure;
+﻿namespace MessagePassing.Products.EventPublisher.Infrastructure;
 
 public class PostgreSqlConfiguration
 {

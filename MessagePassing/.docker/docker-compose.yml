@@ -32,8 +32,10 @@ services:
       dockerfile: ./Products/API/Dockerfile
     container_name: productsapi
     depends_on:
-      - rabbitmq
-      - postgresdb
+      rabbitmq:
+        condition: service_healthy
+      postgresdb:
+        condition: service_started
     ports:
       - "8022:8022"
     environment:
@@ -81,8 +83,10 @@ services:
       dockerfile:  ./Products/EventPublisher/Dockerfile
     container_name: productsservicepublisher
     depends_on:
-      - rabbitmq
-      - postgresdb
+      rabbitmq:
+        condition: service_healthy
+      postgresdb:
+        condition: service_started
     ports:
       - '8023:8023'
     environment:

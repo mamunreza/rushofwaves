@@ -1,8 +1,11 @@
 ﻿using EventConsumer.Infrastructure;
+using MessagePassing.Domain;
+using MessagePassing.Products.Data;
 using Microsoft.Extensions.Options;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System.Text;
+using System.Text.Json;
 
 namespace MessagePassing.Products.EventConsumer;
 
@@ -15,6 +18,7 @@ public class RabbitMQConsumer : IRabbitMQConsumer, IAsyncDisposable
 {
     private readonly ILogger<RabbitMQConsumer> _logger;
     private readonly IOptions<RabbitMqConfiguration> _rabbitMqConfiguration;
+    private readonly AppDbContext _appDbContext;
 
     private readonly string _exchangeName;
     private readonly string _queueName;
@@ -22,12 +26,17 @@ public class RabbitMQConsumer : IRabbitMQConsumer, IAsyncDisposable
     private IChannel? _channel;
     private IConnection? _connection;
 
-    public RabbitMQConsumer(ILogger<RabbitMQConsumer> logger, IOptions<RabbitMqConfiguration> rabbitMqConfiguration)
+    public RabbitMQConsumer(
+        ILogger<RabbitMQConsumer> logger, 
+        IOptions<RabbitMqConfiguration> rabbitMqConfiguration,
+        AppDbContext appDbContext)
     {
         _logger = logger 
             ?? throw new ArgumentNullException(nameof(logger));
         _rabbitMqConfiguration = rabbitMqConfiguration 
             ?? throw new ArgumentNullException(nameof(rabbitMqConfiguration));
+        _appDbContext = appDbContext
+            ?? throw new ArgumentNullException(nameof(appDbContext));
 
         _exchangeName = _rabbitMqConfiguration.Value.Customer.Exchange;
         _queueName = _rabbitMqConfiguration.Value.Customer.Queue;
@@ -84,7 +93,16 @@ public class RabbitMQConsumer : IRabbitMQConsumer, IAsyncDisposable
         try
         {
             _logger.LogInformation("Processing message: {Message}", message);
-            await Task.Delay(1000, cancellationToken); // Your logic here
+
+            var customerAddedInboxItem = JsonSerializer.Deserialize<CustomerAddedInbox>(message);
+            if (customerAddedInboxItem == null)
+            {
+                _logger.LogWarning("Message deserialization failed.");
+                return;
+            }
+
+            _appDbContext.Add(customerAddedInboxItem);
+            await Task.Delay(1000, cancellationToken);
             _logger.LogInformation("Message processed: {Message}", message);
         }
         catch (OperationCanceledException)
