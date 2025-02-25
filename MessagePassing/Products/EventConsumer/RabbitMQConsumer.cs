@@ -1,5 +1,4 @@
 ﻿using EventConsumer.Infrastructure;
-using MessagePassing.Domain;
 using MessagePassing.Products.Data;
 using Microsoft.Extensions.Options;
 using RabbitMQ.Client;
