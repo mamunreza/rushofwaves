@@ -16,7 +16,7 @@ public class Program
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
 
-        builder.Services.AddDbContext<AppDbContext>(opt =>
+        builder.Services.AddDbContext<IAppDbContext, AppDbContext>(opt =>
         {
             string? connectionString = GetConnectionString(builder);
             if (!string.IsNullOrEmpty(connectionString))

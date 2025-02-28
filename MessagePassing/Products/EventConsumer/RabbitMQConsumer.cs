@@ -87,7 +87,7 @@ public class RabbitMQConsumer : IRabbitMQConsumer, IAsyncDisposable
         _logger.LogInformation("RabbitMQ consumer stopped.");
     }
 
-    private async Task ProcessMessageAsync(string message, CancellationToken cancellationToken)
+    internal async Task ProcessMessageAsync(string message, CancellationToken cancellationToken)
     {
         try
         {

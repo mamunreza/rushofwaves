@@ -16,4 +16,8 @@
 		<ProjectReference Include="..\Data\Data.csproj" />
 		<ProjectReference Include="..\Domain\Domain.csproj" />
 	</ItemGroup>
+
+	<ItemGroup>
+		<InternalsVisibleTo Include="EventConsumer.Tests" />
+	</ItemGroup>
 </Project>

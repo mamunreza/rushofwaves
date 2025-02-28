@@ -2,7 +2,12 @@
 
 namespace MessagePassing.Products.Data;
 
-public class AppDbContext(DbContextOptions options) : DbContext(options)
+public interface IAppDbContext
+{
+    
+}
+
+public class AppDbContext(DbContextOptions options) : DbContext(options), IAppDbContext
 {
     public DbSet<Product> Products { get; set; }
     public DbSet<ProductAddedOutbox> ProductAddedOutboxes { get; set; }
