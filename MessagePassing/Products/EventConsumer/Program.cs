@@ -1,4 +1,4 @@
-using EventConsumer.Infrastructure;
+using MessagePassing.Common.RabbitMq;
 using MessagePassing.Products.Data;
 using MessagePassing.Products.EventConsumer.Infrastructure;
 using Microsoft.EntityFrameworkCore;

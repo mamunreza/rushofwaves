@@ -1,4 +1,4 @@
-﻿namespace EventConsumer.Infrastructure;
+﻿namespace MessagePassing.Common.RabbitMq;
 
 public class RabbitMqConfiguration
 {
