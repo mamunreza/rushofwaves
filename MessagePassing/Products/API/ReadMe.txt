@@ -14,9 +14,8 @@ dotnet ef database update --startup-project ../API
 - Add Repository in the API project
 
 ### EventConsumer project
-- Consume CustomerAdded from RabbitMQ
-  _ Add unit tests for the event consumer
-  - Update Customer information in the database
+  - Fix docker
+  - Update Customer information in the database by job from inbox
   - Integrate polly for retry policy
 
 ### EventPublisher project
