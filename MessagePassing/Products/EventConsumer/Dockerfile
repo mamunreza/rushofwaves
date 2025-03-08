@@ -3,11 +3,13 @@ WORKDIR /app
 
 COPY Products/Data/*.csproj ./Products/Data/
 COPY Products/Domain/*.csproj ./Products/Domain/
+COPY Products/Common/*.csproj ./Products/Common/
 COPY Products/EventConsumer/*.csproj ./Products/EventConsumer/
 RUN dotnet restore Products/EventConsumer/EventConsumer.csproj
 
 COPY Products/Data/. ./Products/Data/
 COPY Products/Domain/. ./Products/Domain/
+COPY Products/Common/. ./Products/Common/
 COPY Products/EventConsumer/. ./Products/EventConsumer/
 
 RUN dotnet build Products/EventConsumer/EventConsumer.csproj -c Release -o /app/build
