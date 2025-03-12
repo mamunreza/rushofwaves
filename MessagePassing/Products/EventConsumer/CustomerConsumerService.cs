@@ -29,11 +29,11 @@ public class CustomerConsumerService : ICustomerConsumerService
     public async Task ConsumeAsync(CancellationToken cancellationToken)
     {
         _logger.LogInformation("Consumption started");
-        await _rabbitMQConsumer.StartAsync<CustomerAddedInbox>(ProcessMessageAsync, cancellationToken);
+        await _rabbitMQConsumer.StartAsync<CustomerAddedInbox>(ProcessCustomerAddedAsync, cancellationToken);
         _logger.LogInformation("Consumption ended");
     }
 
-    private async Task ProcessMessageAsync(CustomerAddedInbox message, CancellationToken cancellationToken)
+    private async Task ProcessCustomerAddedAsync(CustomerAddedInbox message, CancellationToken cancellationToken)
     {
         _appDbContext.Add(message);
         await _appDbContext.SaveChangesAsync(cancellationToken);
