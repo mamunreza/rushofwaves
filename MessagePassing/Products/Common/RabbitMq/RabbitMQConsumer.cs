@@ -40,6 +40,7 @@ public class RabbitMQConsumer : IRabbitMQConsumer, IAsyncDisposable
         _routingKey = _rabbitMqConfiguration.Value.Customer.RoutingKey;
     }
 
+    // TODO: Add polly retry policy
     public async Task StartAsync<T>(MessageProcessedHandler<T> messageProcessedHandler, CancellationToken cancellationToken)
     {
         await CreateRabbitChannel(cancellationToken);
@@ -68,13 +69,15 @@ public class RabbitMQConsumer : IRabbitMQConsumer, IAsyncDisposable
                 {
                     await messageProcessedHandler(deserializedMessage, cancellationToken);
                 }
-
-                await _channel.BasicAckAsync(ea.DeliveryTag, false);
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Error processing message");
-                await _channel.BasicNackAsync(ea.DeliveryTag, false, true); // Careful with requeuing!
+                //await _channel.BasicNackAsync(ea.DeliveryTag, false, true); // Careful with requeuing!
+            }
+            finally
+            {
+                await _channel.BasicAckAsync(ea.DeliveryTag, false);
             }
         };
 
