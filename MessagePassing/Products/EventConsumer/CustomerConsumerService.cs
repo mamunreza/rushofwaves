@@ -35,6 +35,7 @@ public class CustomerConsumerService : ICustomerConsumerService
 
     private async Task ProcessCustomerAddedAsync(CustomerAddedInbox message, CancellationToken cancellationToken)
     {
+        message.Id = Guid.NewGuid();
         _appDbContext.Add(message);
         await _appDbContext.SaveChangesAsync(cancellationToken);
     }
