@@ -1,4 +1,5 @@
-﻿using MessagePassing.Common.RabbitMq;
+﻿using Common.Events;
+using MessagePassing.Common.RabbitMq;
 using MessagePassing.Products.Data;
 
 namespace MessagePassing.Products.EventConsumer;
@@ -29,14 +30,24 @@ public class CustomerConsumerService : ICustomerConsumerService
     public async Task ConsumeAsync(CancellationToken cancellationToken)
     {
         _logger.LogInformation("Consumption started");
-        await _rabbitMQConsumer.StartAsync<CustomerAddedInbox>(ProcessCustomerAddedAsync, cancellationToken);
+        await _rabbitMQConsumer.StartAsync<CustomerAdded>(ProcessCustomerAddedAsync, cancellationToken);
         _logger.LogInformation("Consumption ended");
     }
 
-    private async Task ProcessCustomerAddedAsync(CustomerAddedInbox message, CancellationToken cancellationToken)
+    private async Task ProcessCustomerAddedAsync(CustomerAdded customerAdded, CancellationToken cancellationToken)
     {
-        message.Id = Guid.NewGuid();
-        _appDbContext.Add(message);
+        var inboxItem = new CustomerAddedInbox
+        {
+            Id = Guid.NewGuid(),
+            RootId = customerAdded.Id,
+            FirstName = customerAdded.FirstName,
+            LastName = customerAdded.LastName,
+            Email = customerAdded.Email,
+            Phone = customerAdded.Phone,
+            CreatedAt = customerAdded.CreatedAt,
+            UpdatedAt = customerAdded.UpdatedAt
+        };
+        _appDbContext.Add(inboxItem);
         await _appDbContext.SaveChangesAsync(cancellationToken);
     }
 }

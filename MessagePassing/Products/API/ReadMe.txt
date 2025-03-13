@@ -4,6 +4,8 @@ dotnet add package Microsoft.EntityFrameworkCore.Design
 cd Data
 dotnet ef migrations add InitialCreate --startup-project ../API
 
+cd Data
+# Need to manually add connection string in appsettings.json before running the below command
 dotnet ef database update --startup-project ../API
 
 
