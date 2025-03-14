@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250313222901_InitialCreate")]
+    [Migration("20250314225647_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -88,7 +88,7 @@ namespace Data.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<Guid?>("RootId")
+                    b.Property<Guid>("RootId")
                         .HasColumnType("uuid");
 
                     b.Property<DateTime>("UpdatedAt")

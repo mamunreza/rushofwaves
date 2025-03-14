@@ -22,6 +22,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docker", "Docker", "{7310A1
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{B2A24876-D97D-46D9-A906-1D8C91B28AC5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scheduler", "Scheduler\Scheduler.csproj", "{9B7B885F-5D53-464B-B879-DFC79C395326}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -56,6 +58,10 @@ Global
 		{B2A24876-D97D-46D9-A906-1D8C91B28AC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B2A24876-D97D-46D9-A906-1D8C91B28AC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B2A24876-D97D-46D9-A906-1D8C91B28AC5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B7B885F-5D53-464B-B879-DFC79C395326}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B7B885F-5D53-464B-B879-DFC79C395326}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B7B885F-5D53-464B-B879-DFC79C395326}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B7B885F-5D53-464B-B879-DFC79C395326}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
