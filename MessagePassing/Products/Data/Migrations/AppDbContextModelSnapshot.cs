@@ -85,7 +85,7 @@ namespace Data.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<Guid?>("RootId")
+                    b.Property<Guid>("RootId")
                         .HasColumnType("uuid");
 
                     b.Property<DateTime>("UpdatedAt")
