@@ -17,4 +17,4 @@ FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
 WORKDIR /app
 COPY --from=build /app/out ./
 EXPOSE 8022
-ENTRYPOINT ["dotnet", "API.dll"]
+ENTRYPOINT ["sh", "-c", "sleep 30 && dotnet API.dll"]

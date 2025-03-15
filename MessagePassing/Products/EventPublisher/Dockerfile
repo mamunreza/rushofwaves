@@ -18,4 +18,4 @@ WORKDIR /app
 COPY --from=build /app/out ./
 EXPOSE 8023
 
-ENTRYPOINT ["dotnet", "EventPublisher.dll"]
+ENTRYPOINT ["sh", "-c", "sleep 30 && dotnet EventPublisher.dll"]

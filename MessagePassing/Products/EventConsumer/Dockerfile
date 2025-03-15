@@ -20,4 +20,4 @@ WORKDIR /app
 COPY --from=build /app/out ./
 EXPOSE 8021
 
-ENTRYPOINT ["dotnet", "EventConsumer.dll"]
+ENTRYPOINT ["sh", "-c", "sleep 30 && dotnet EventConsumer.dll"]

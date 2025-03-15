@@ -16,4 +16,4 @@ WORKDIR /app
 COPY --from=build /app/out ./
 EXPOSE 8024
 
-ENTRYPOINT ["dotnet", "Scheduler.dll"]
+ENTRYPOINT ["sh", "-c", "sleep 30 && dotnet Scheduler.dll"]
