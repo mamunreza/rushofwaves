@@ -105,23 +105,24 @@ services:
     restart: always
 
   producssynchronizer:
-      build:
-        context: ../
-        dockerfile:  ./Products/Scheduler/Dockerfile
-      container_name: productssynchronizer
-      depends_on:
-        postgresdb:
-          condition: service_started
-      ports:
-        - '8024:8024'
-      environment:
-        # - ASPNETCORE_ENVIRONMENT=Development
-        - POSTGRESQL__HOST=postgresdb
-        - POSTGRESQL__PORT=5432
-        - POSTGRESQL__DATABASE=mpproduct
-        - POSTGRESQL__USERNAME=postgres
-        - POSTGRESQL__PASSWORD=sa123
-      
+    build:
+      context: ../
+      dockerfile:  ./Products/Scheduler/Dockerfile
+    container_name: productssynchronizer
+    depends_on:
+      postgresdb:
+        condition: service_started
+    ports:
+      - '8024:8024'
+    environment:
+      # - ASPNETCORE_ENVIRONMENT=Development
+      - POSTGRESQL__HOST=postgresdb
+      - POSTGRESQL__PORT=5432
+      - POSTGRESQL__DATABASE=mpproduct
+      - POSTGRESQL__USERNAME=postgres
+      - POSTGRESQL__PASSWORD=sa123
+    restart: always
+    
 volumes:
   postgres_data:
     # driver: local
