@@ -1,3 +1,4 @@
+using MessagePassing.Products.API.Services;
 using MessagePassing.Products.API.Infrastructure;
 using MessagePassing.Products.Data;
 using Microsoft.EntityFrameworkCore;
@@ -24,6 +25,8 @@ public class Program
                 opt.UseNpgsql(connectionString);
             }
         });
+        builder.Services.AddScoped<IProductService, ProductService>();
+
         var app = builder.Build();
         app.UseSwagger();
         app.UseSwaggerUI();
