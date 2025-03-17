@@ -1,7 +1,6 @@
-using MessagePassing.Products.Data;
+using MessagePassing.Products.API.Services;
 using MessagePassing.Domain;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace MessagePassing.Products.API.Controllers;
 
@@ -10,68 +9,31 @@ namespace MessagePassing.Products.API.Controllers;
 public class ProductsController : ControllerBase
 {
     private readonly ILogger<ProductsController> _logger;
-    private readonly AppDbContext _dbContext;
+    private readonly IProductService _productService;
 
     public ProductsController(
-        ILogger<ProductsController> logger, 
-        AppDbContext dbContext)
+        ILogger<ProductsController> logger,
+        IProductService productService)
     {
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-        _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
+        _productService = productService ?? throw new ArgumentNullException(nameof(productService));
     }
 
-    [HttpPost(Name = "AddProduct")]
-    public async Task<IActionResult> AddProduct(ProductAdded product)
+    [HttpPost(Name = "createProductAsync")]
+    public async Task<IActionResult> CreateProductAsync(ProductAdded product)
     {
-        Product newProduct = CreateProduct(product);
-        _dbContext.Products.Add(newProduct);
-        ProductAddedOutbox productAddedOutbox = CreateProductAddedOutbox(product);
-        _dbContext.ProductAddedOutboxes.Add(productAddedOutbox);
-        await _dbContext.SaveChangesAsync();
-        _logger.LogInformation("Product added: {ProductId}", newProduct.Id);
-        return Ok(newProduct);
+        var created = await _productService.CreateAsync(product);
+        await _productService.CreateProductAddedOutbox(product);
+        _logger.LogInformation("Product added: {ProductId}", created.Id);
+        return Ok(created);
     }
 
-    [HttpGet(Name = "GetProducts")]
-    public async Task<IActionResult> GetProducts()
-    {
-        var products = await _dbContext.Products.ToListAsync();
-        return Ok(products);
-    }
+    //[HttpGet(Name = "GetProducts")]
+    //public async Task<IActionResult> GetProducts()
+    //{
+    //    var products = await _dbContext.Products.ToListAsync();
+    //    return Ok(products);
+    //}
 
-    private static Product CreateProduct(ProductAdded product)
-    {
-        return new Product
-        {
-            Id = Guid.NewGuid(),
-            Name = product.Name,
-            Price = product.Price,
-            Description = product.Description,
-            Category = product.Category,
-            ImageUrl = product.ImageUrl,
-            Brand = product.Brand,
-            Stock = 1,
-            IsAvailable = true,
-            CreatedAt = DateTime.UtcNow,
-            UpdatedAt = DateTime.UtcNow
-        };
-    }
-
-    private static ProductAddedOutbox CreateProductAddedOutbox(ProductAdded product)
-    {
-        return new ProductAddedOutbox
-        {
-            Id = Guid.NewGuid(),
-            Name = product.Name,
-            Price = product.Price,
-            Description = product.Description,
-            Category = product.Category,
-            ImageUrl = product.ImageUrl,
-            Brand = product.Brand,
-            Stock = 1,
-            IsAvailable = true,
-            CreatedAt = DateTime.UtcNow,
-            UpdatedAt = DateTime.UtcNow
-        };
-    }
+    
 }
