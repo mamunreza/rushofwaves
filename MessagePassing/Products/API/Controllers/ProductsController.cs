@@ -28,12 +28,12 @@ public class ProductsController : ControllerBase
         return Ok(created);
     }
 
-    //[HttpGet(Name = "GetProducts")]
-    //public async Task<IActionResult> GetProducts()
-    //{
-    //    var products = await _dbContext.Products.ToListAsync();
-    //    return Ok(products);
-    //}
+    [HttpGet(Name = "GetProducts")]
+    public async Task<IActionResult> GetProducts()
+    {
+        var products = await _productService.GetAllProductsAsync();
+        return Ok(products);
+    }
 
-    
+
 }
