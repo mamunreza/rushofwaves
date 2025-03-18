@@ -1,5 +1,6 @@
 ﻿using MessagePassing.Domain;
 using MessagePassing.Products.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace MessagePassing.Products.API.Services;
 
@@ -7,6 +8,7 @@ public interface IProductService
 {
     Task<Product> CreateAsync(ProductAdded productAdded);
     Task<ProductAddedOutbox> CreateProductAddedOutbox(ProductAdded product);
+    Task<List<Product>> GetAllProductsAsync();
 }
 
 public class ProductService(
@@ -58,5 +60,10 @@ public class ProductService(
         await _dbContext.SaveChangesAsync();
         _logger.LogInformation("Product added to outbox: {ProductId}", outboxItem.Id);
         return outboxItem;
+    }
+
+    public async Task<List<Product>> GetAllProductsAsync()
+    {
+        return await _dbContext.Products.ToListAsync();
     }
 }
