@@ -1,6 +1,7 @@
 using MessagePassing.Products.API.Services;
 using MessagePassing.Domain;
 using Microsoft.AspNetCore.Mvc;
+using API.Domain;
 
 namespace MessagePassing.Products.API.Controllers;
 
@@ -20,10 +21,21 @@ public class ProductsController : ControllerBase
     }
 
     [HttpPost(Name = "createProductAsync")]
-    public async Task<IActionResult> CreateProductAsync(ProductAdded product)
+    public async Task<IActionResult> CreateProductAsync(ProdocutAddedCommand command)
     {
-        var created = await _productService.CreateAsync(product);
-        await _productService.CreateProductAddedOutbox(product);
+        var productAdded = new ProductAdded
+        {
+            Id = Guid.NewGuid(),
+            Name = command.Name,
+            Price = command.Price,
+            Description = command.Description,
+            Category = command.ProductCategory.ToString(),
+            ImageUrl = command.ImageUrl,
+            CreatedAt = DateTime.UtcNow,
+            UpdatedAt = DateTime.UtcNow
+        };
+        var created = await _productService.CreateAsync(productAdded);
+        await _productService.CreateProductAddedOutbox(productAdded);
         _logger.LogInformation("Product added: {ProductId}", created.Id);
         return Ok(created);
     }
